@@ -1,6 +1,6 @@
 <template>
     <div>
-        <VueDocPreview :value="file_content_excel" type="office" />
+        <VueDocPreview :value="file_content_powerpoint" type="office" />
     </div>
 </template>
 
@@ -8,11 +8,11 @@
 import VueDocPreview from 'vue-doc-preview'
 
 export default {
-    name: 'excel_viewer',
+    name: 'powerpoint_viewer',
 
     components: { VueDocPreview },
 
-    props: ['file_content_excel']
+    props: ['file_content_powerpoint']
 }
 </script>
 

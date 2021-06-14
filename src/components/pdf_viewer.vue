@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <vue-pdf-app id="pdf_display_height" pdf="https://d1.islamhouse.com/data/en/ih_books/single2/en_jesus_the_Messiah.pdf"></vue-pdf-app>
+    <vue-pdf-app id="pdf_display_height" :pdf="file_content_pdf"></vue-pdf-app>
   </div>
 </template>
 
