@@ -4,75 +4,80 @@
     <div class="pdf_display">
       <h3>For PDF:</h3>
       <pdf_viewer :file_content_pdf="file_value_pdf"></pdf_viewer>
-      <div style="margin-top: 10px;">
-        <input type="text" placeholder="provide pdf url..." ref="pdf_comp" id="file_value">
-        <button id="pdf_btn" @click="previewFile_pdf">submit file</button>
-      </div>
-    </div>
-    <hr style="margin-top: 20px;">
-    <div>
-      <h3>For Excel:</h3>
-      <excel_viewer></excel_viewer>
-    </div>
-    <hr style="margin-top: 20px;">
-    <div>
-      <h3>For Images:</h3><excel_viewer></excel_viewer>
     </div>
 
-
-
-
-
- <hr style="margin-top: 100px;">
+    <hr style="margin-top: 100px;">
     <div>
       <h3>For word:</h3>
-    <VueDocPreview value="https://file-examples-com.github.io/uploads/2017/02/file-sample_100kB.doc" type="office" />
-
- <hr style="margin-top: 100px;">
-
-      <h3>For excel:</h3>
-    <VueDocPreview value="https://dornsife.usc.edu/assets/sites/298/docs/ir211wk12sample.xls" type="office" />
-
- <hr style="margin-top: 100px;">
-
-      <h3>For presentation:</h3>
-    <VueDocPreview value="https://acdbio.com/sites/default/files/sample.ppt" type="office" />
-
-
- <hr style="margin-top: 100px;">
-      <h3>For text:</h3>
-    <VueDocPreview value="readTextFil" type="text" />
+      <word_viewer :file_content_word="file_value_word"></word_viewer>
     </div>
 
-  <hr style="margin-top: 100px;">
-  <h3>For video:</h3>  
-  <div class="player-container">
-    <vue-core-video-player src="Simple Video.mp4"></vue-core-video-player>
-  </div>
+    <hr style="margin-top: 100px;">
+    <div>
+      <h3>For excel:</h3>
+      <excel_viewer :file_content_excel="file_value_excel"></excel_viewer>
+    </div>
 
+    <hr style="margin-top: 100px;">
+    <div>
+      <h3>For presentation:</h3>
+      <powerpoint_viewer :file_content_powerpoint="file_value_powerpoint"></powerpoint_viewer>
+    </div>
+
+    <hr style="margin-top: 100px;">
+    <div>
+      <h3>For video:</h3>
+      <video_viewer :file_content_video="file_value_video"></video_viewer>
+    </div>
+
+    <hr style="margin-top: 100px;">
+    <div>
+      <h3>For text:</h3>
+      <div><input type="file" name="inputfile" id="inputfile"></div>
+      <pre id="output">
+
+      </pre>
+    </div>
   </div>
 </template>
 
 <script>
 import pdf_viewer from './components/pdf_viewer.vue'
+import word_viewer from './components/word_viewer.vue'
 import excel_viewer from './components/excel_viewer.vue'
-import VueDocPreview from 'vue-doc-preview'
+import powerpoint_viewer from './components/powerpoint_viewer.vue'
+import video_viewer from './components/video_viewer.vue'
 
 export default {
   name: 'App',
 
-  components: { pdf_viewer, excel_viewer, VueDocPreview },
+  components: { pdf_viewer, word_viewer, excel_viewer, powerpoint_viewer, video_viewer },
 
   data(){
     return {
-      file_value_pdf: ''
+      file_value_pdf: 'CSCU SLIDE INTRO.pdf',
+      file_value_word: '',
+      file_value_excel: '',
+      file_value_powerpoint: '',
+      file_value_video: 'Simple Video.mp4',
+      file_value_text: '',
+      text_output: ''
     }
   },
 
   methods: {
-    previewFile_pdf(){
-      this.file_value_pdf = this.$refs.pdf_comp.value
-    }
+    
+  },
+
+  mounted(){
+    document.getElementById('inputfile').addEventListener('change', function(){
+      var fr = new FileReader();
+      fr.onload = function(){
+        document.getElementById('output').textContent = fr.result;
+      }
+
+      fr.readAsText(this.files[0]);
+    })
   }
 }
 </script>
